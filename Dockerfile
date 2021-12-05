@@ -16,12 +16,13 @@ WORKDIR /go/src/app
 COPY go.mod .
 COPY go.sum .
 
+# Go 1.11 introduces the "go mod download" command, which takes "go.mod" and "go.sum" files
+# and downloads the dependencies from them instead of using the source code
 RUN go mod download
 
 COPY . .
 
 RUN go build -o ./run .
-RUN
 
 ############ API-SERVER
 FROM alpine:3.15.0 as api-server
