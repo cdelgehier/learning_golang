@@ -2,6 +2,15 @@
 FROM golang:alpine as builder
 LABEL stage=builder
 
+# Set necessary environmet variables needed for our image
+## Force using Go modules even if the project is in your GOPATH. Requires go.mod to work.
+ENV GO111MODULE=on
+## Staticaly-linked binary
+ENV CGO_ENABLED=0
+## Build only for Linux/amd64
+ENV GOOS=linux
+ENV GOARCH=amd64
+
 WORKDIR /go/src/app
 
 COPY go.mod .

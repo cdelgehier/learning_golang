@@ -138,5 +138,10 @@ go get -u github.com/swaggo/files
 2021/12/05 00:25:05 create swagger.yaml at docs/swagger.yaml
 ```
 
+## Glang env Variables
+
+Ref:
+* https://dev.to/maelvls/why-is-go111module-everywhere-and-everything-about-go-modules-24k
+
 
 
