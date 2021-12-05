@@ -36,7 +36,7 @@ build: swag
 	@docker build --target swagger-ui --tag $(APP_NAME):swagger-ui $(DOCKER_BUILD_OPTS) . && echo "== Stage: SWAGGER UI done"
 
 ## run       : Run the docker image on DOCKER_HOST_IP:8080
-run: clean
+run:
 	@docker run --detach --name $(APP_NAME)_api-server --publish ${API_SERVER_PORT}:8080 $(APP_NAME):api-server
 	@docker run --detach --name $(APP_NAME)_swagger-ui --publish ${SWAGGER_UI_PORT}:8080 $(APP_NAME):swagger-ui
 
