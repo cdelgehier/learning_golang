@@ -24,6 +24,9 @@ COPY . .
 
 RUN go build -o ./api-server api-server.go
 
+# Reuse builder to run go test
+ENTRYPOINT ["go", "test", "-v", "./..."]
+
 ############ API-SERVER
 FROM alpine:3.15.0 as api-server
 LABEL stage=api-server

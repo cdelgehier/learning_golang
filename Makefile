@@ -29,7 +29,7 @@ APP_NAME ?= myapp
 ## build     : Build the docker image of $(APP_NAME)
 build: swag
 # builder stage
-	@docker build --target builder --tag builder $(DOCKER_BUILD_OPTS) . && echo "== Stage: BUILDER done"
+	@docker build --target builder --tag $(APP_NAME):builder $(DOCKER_BUILD_OPTS) . && echo "== Stage: BUILDER done"
 # api server
 	@docker build --target api-server --tag $(APP_NAME):api-server $(DOCKER_BUILD_OPTS) . && echo "== Stage: API Server done"
 # swagger-ui
@@ -49,6 +49,10 @@ clean:
 swag:
 # TODO: generate docs when there are several files
 	@swag init -g ./api-server.go
+
+## test      : Run tests
+test:
+	@docker run --name $(APP_NAME)_builder $(APP_NAME):builder
 
 ## help      : Display this help
 help : Makefile
