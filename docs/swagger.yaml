@@ -1,0 +1,48 @@
+basePath: /api/v1
+definitions:
+  models.Article:
+    properties:
+      brand:
+        example: Haribo
+        type: string
+      id:
+        example: "1"
+        type: string
+      name:
+        example: Rotella
+        type: string
+      price:
+        example: 13.9
+        type: number
+    type: object
+host: localhost:8080
+info:
+  contact:
+    name: DELGEHIER Cedric
+    url: https://twitter.com/JackNemrod
+  description: This is the MyApp API server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: MyApp API
+  version: "1.0"
+paths:
+  /api/v1/articles:
+    get:
+      consumes:
+      - application/json
+      description: Get a list of all articles known
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Article'
+            type: array
+      summary: List articles
+      tags:
+      - articles
+swagger: "2.0"
