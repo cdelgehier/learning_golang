@@ -47,7 +47,8 @@ clean:
 
 ## swag      : generate swagger json
 swag:
-	@swag init
+# TODO: generate docs when there are several files
+	@swag init -g ./api-server.go
 
 ## help      : Display this help
 help : Makefile

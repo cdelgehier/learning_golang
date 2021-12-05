@@ -22,7 +22,7 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o ./run .
+RUN go build -o ./api-server api-server.go
 
 ############ API-SERVER
 FROM alpine:3.15.0 as api-server
@@ -31,11 +31,11 @@ LABEL stage=api-server
 RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 
-COPY --from=builder /go/src/app/run .
+COPY --from=builder /go/src/app/api-server .
 USER ${USER}
 EXPOSE 8080
 
-CMD ["./run"]
+CMD ["./api-server"]
 
 ############ SWAGGER-UI
 FROM swaggerapi/swagger-ui:v4.1.2 as swagger-ui

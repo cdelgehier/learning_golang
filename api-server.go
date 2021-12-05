@@ -1,3 +1,4 @@
+// Golang REST API server
 package main
 
 import (
