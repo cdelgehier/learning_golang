@@ -17,9 +17,9 @@
     "host": "localhost:8080",
     "basePath": "/api/v1",
     "paths": {
-        "/api/v1/articles": {
+        "/api/v1/Products": {
             "get": {
-                "description": "Get a list of all articles known",
+                "description": "Get a list of all Products known",
                 "consumes": [
                     "application/json"
                 ],
@@ -27,16 +27,16 @@
                     "application/json"
                 ],
                 "tags": [
-                    "articles"
+                    "Products"
                 ],
-                "summary": "List articles",
+                "summary": "List Products",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/models.Article"
+                                "$ref": "#/definitions/models.Product"
                             }
                         }
                     }
@@ -45,7 +45,7 @@
         }
     },
     "definitions": {
-        "models.Article": {
+        "models.Product": {
             "type": "object",
             "properties": {
                 "brand": {

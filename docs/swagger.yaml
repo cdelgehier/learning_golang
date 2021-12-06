@@ -1,6 +1,6 @@
 basePath: /api/v1
 definitions:
-  models.Article:
+  models.Product:
     properties:
       brand:
         example: Haribo
@@ -28,11 +28,11 @@ info:
   title: MyApp API
   version: "1.0"
 paths:
-  /api/v1/articles:
+  /api/v1/products:
     get:
       consumes:
       - application/json
-      description: Get a list of all articles known
+      description: Get a list of all products known
       produces:
       - application/json
       responses:
@@ -40,9 +40,9 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/models.Article'
+              $ref: '#/definitions/models.Product'
             type: array
-      summary: List articles
+      summary: List products
       tags:
-      - articles
+      - products
 swagger: "2.0"

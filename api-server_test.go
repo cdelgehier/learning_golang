@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func TestListArticles(t *testing.T) {
+func TestListProducts(t *testing.T) {
 	// Switch to test mode
 	gin.SetMode(gin.TestMode)
 
@@ -16,14 +16,14 @@ func TestListArticles(t *testing.T) {
 	router := gin.Default()
 	v1 := router.Group("/api/v1")
 	{
-		articles := v1.Group("/articles")
+		products := v1.Group("/products")
 		{
-			articles.GET("", ListArticles)
+			products.GET("", ListProducts)
 		}
 	}
 
 	// Test the route as defined in api-server.go
-	req, err := http.NewRequest(http.MethodGet, "/api/v1/articles", nil)
+	req, err := http.NewRequest(http.MethodGet, "/api/v1/products", nil)
 	if err != nil {
 		t.Fatalf("Couldn't create request: %v\n", err)
 	}

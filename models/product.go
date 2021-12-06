@@ -1,7 +1,7 @@
 package models
 
-// article represents data about an article.
-type Article struct {
+// product represents data about an product.
+type Product struct {
 	ID    string  `json:"id" example:"1"`
 	Brand string  `json:"brand" example:"Haribo"`
 	Name  string  `json:"name" example:"Rotella"`

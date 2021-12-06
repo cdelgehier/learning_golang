@@ -11,8 +11,8 @@ import (
 	"github.com/cdelgehier/learning_golang/models"
 )
 
-// articles slice to seed article data.
-var articles = []models.Article{
+// products slice to seed product data.
+var products = []models.Product{
 	{ID: "1", Brand: "Ferrero", Name: "Kinder Bueno", Price: 3.56},
 	{ID: "2", Brand: "Mars, Incorporated", Name: "M&M's", Price: 2.43},
 	{ID: "3", Brand: "Haribo", Name: "Rotella", Price: 13.90},
@@ -37,27 +37,31 @@ func main() {
 	// Default With the Logger and Recovery middleware already attached
 	router := gin.Default()
 
+	router.GET("/", func(context *gin.Context) {
+		context.String(http.StatusOK, "MyApp e-ecommerce API Server")
+	})
+
 	// Group routes by version
 	v1 := router.Group("/api/v1")
 	{
-		articles := v1.Group("/articles")
+		products := v1.Group("/product")
 		{
-			// articles.GET(":id", ShowArticle)
-			articles.GET("", ListArticles)
+			// products.GET(":id", ShowProduct)
+			products.GET("", ListProducts)
 		}
 	}
 
 	router.Run(":8080")
 }
 
-// ListArticles godoc
-// @Summary      List articles
-// @Description  Get a list of all articles known
-// @Tags         articles
+// ListProducts godoc
+// @Summary      List products
+// @Description  Get a list of all products known
+// @Tags         products
 // @Accept       json
 // @Produce      json
-// @Success      200  {array}   models.Article
-// @Router       /api/v1/articles [get]
-func ListArticles(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, articles)
+// @Success      200  {array}   models.Product
+// @Router       /api/v1/products [get]
+func ListProducts(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, products)
 }

@@ -31,9 +31,9 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/v1/articles": {
+        "/api/v1/products": {
             "get": {
-                "description": "Get a list of all articles known",
+                "description": "Get a list of all products known",
                 "consumes": [
                     "application/json"
                 ],
@@ -41,16 +41,16 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "articles"
+                    "products"
                 ],
-                "summary": "List articles",
+                "summary": "List products",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/models.Article"
+                                "$ref": "#/definitions/models.Product"
                             }
                         }
                     }
@@ -59,7 +59,7 @@ var doc = `{
         }
     },
     "definitions": {
-        "models.Article": {
+        "models.Product": {
             "type": "object",
             "properties": {
                 "brand": {

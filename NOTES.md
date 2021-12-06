@@ -25,29 +25,29 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// article represents data about an article.
-type article struct {
+// product represents data about an product.
+type product struct {
 	ID    string  `json:"id"`
 	Brand string  `json:"brand"`
 	Name  string  `json:"name"`
 	Price float64 `json:"price"`
 }
 
-// articles slice to seed article data.
-var articles = []article{
+// products slice to seed product data.
+var products = []product{
 	{ID: "1", Brand: "Ferrero", Name: "Kinder Bueno", Price: 3.56},
 	{ID: "2", Brand: "Mars, Incorporated", Name: "M&M's", Price: 2.43},
 	{ID: "3", Brand: "Haribo", Name: "Rotella", Price: 13.90},
 }
 
-// getArticles responds with the list of all articles as JSON.
-func getArticles(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, articles)
+// getProducts responds with the list of all products as JSON.
+func getProducts(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, products)
 }
 
 func main() {
 	router := gin.Default()
-	router.GET("/articles", getArticles)
+	router.GET("/products", getProducts)
 
 	router.Run("localhost:8080")
 }
@@ -132,7 +132,7 @@ go get -u github.com/swaggo/files
 # swag init
 2021/12/05 00:25:05 Generate swagger docs....
 2021/12/05 00:25:05 Generate general API Info, search dir:./
-2021/12/05 00:25:05 Generating models.Article
+2021/12/05 00:25:05 Generating models.Product
 2021/12/05 00:25:05 create docs.go at docs/docs.go
 2021/12/05 00:25:05 create swagger.json at docs/swagger.json
 2021/12/05 00:25:05 create swagger.yaml at docs/swagger.yaml
