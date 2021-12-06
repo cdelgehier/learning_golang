@@ -27,7 +27,7 @@ APP_NAME ?= myapp
 .PHONY: build run clean swag help
 
 ## build     : Build the docker image of $(APP_NAME)
-build: swag
+build:
 # builder stage
 	@docker build --target builder --tag $(APP_NAME):builder $(DOCKER_BUILD_OPTS) . && echo "== Stage: BUILDER done"
 # api server
@@ -48,7 +48,7 @@ clean:
 ## swag      : generate swagger json
 swag:
 # TODO: generate docs when there are several files
-	@swag init -g ./api-server.go
+	@docker run --rm --volume "$(PWD):/go/src/app" --name $(APP_NAME)_swag $(APP_NAME):builder swag init -g ./api-server.go
 
 ## test      : Run tests
 test:

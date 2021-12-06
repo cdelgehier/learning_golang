@@ -20,12 +20,15 @@ COPY go.sum .
 # and downloads the dependencies from them instead of using the source code
 RUN go mod download
 
+# Add swag command line to builder
+RUN go get -u github.com/swaggo/swag/cmd/swag
+
 COPY . .
 
 RUN go build -o ./api-server api-server.go
 
 # Reuse builder to run go test
-ENTRYPOINT ["go", "test", "-v", "./..."]
+CMD ["go", "test", "-v", "./..."]
 
 ############ API-SERVER
 FROM alpine:3.15.0 as api-server
