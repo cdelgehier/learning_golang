@@ -56,9 +56,38 @@ var doc = `{
                     }
                 }
             }
+        },
+        "/ping": {
+            "get": {
+                "description": "Ping method for API Server",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Ping",
+                "responses": {
+                    "200": {
+                        "description": "ping !",
+                        "schema": {
+                            "$ref": "#/definitions/models.Ping"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "models.Ping": {
+            "type": "object",
+            "properties": {
+                "pong": {
+                    "type": "string",
+                    "example": "2021-10-31 16:13:58.292387 +0000 UTC"
+                }
+            }
+        },
         "models.Product": {
             "type": "object",
             "properties": {

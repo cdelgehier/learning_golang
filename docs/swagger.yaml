@@ -1,5 +1,11 @@
 basePath: /api/v1
 definitions:
+  models.Ping:
+    properties:
+      pong:
+        example: 2021-10-31 16:13:58.292387 +0000 UTC
+        type: string
+    type: object
   models.Product:
     properties:
       brand:
@@ -45,4 +51,17 @@ paths:
       summary: List products
       tags:
       - products
+  /ping:
+    get:
+      consumes:
+      - application/json
+      description: Ping method for API Server
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ping !
+          schema:
+            $ref: '#/definitions/models.Ping'
+      summary: Ping
 swagger: "2.0"

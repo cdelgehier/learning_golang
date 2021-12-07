@@ -4,6 +4,7 @@ package main
 import (
 	// Import net/http. This is required for example if using constants such as http.StatusOK.
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 
@@ -37,9 +38,7 @@ func main() {
 	// Default With the Logger and Recovery middleware already attached
 	router := gin.Default()
 
-	router.GET("/", func(context *gin.Context) {
-		context.String(http.StatusOK, "MyApp e-ecommerce API Server")
-	})
+	router.GET("/ping", Ping)
 
 	// Group routes by version
 	v1 := router.Group("/api/v1")
@@ -64,4 +63,15 @@ func main() {
 // @Router       /api/v1/products [get]
 func ListProducts(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, products)
+}
+
+// Ping godoc
+// @Summary      Ping
+// @Description  Ping method for API Server
+// @Accept       json
+// @Produce      json
+// @Success      200  {object} models.Ping "ping !"
+// @Router       /ping [get]
+func Ping(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, models.Ping{Pong: time.Now()})
 }
