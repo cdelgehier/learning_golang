@@ -64,4 +64,17 @@ paths:
           schema:
             $ref: '#/definitions/models.Ping'
       summary: Ping
+  /version:
+    get:
+      consumes:
+      - application/json
+      description: Version of API-server
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: version
+          schema:
+            type: string
+      summary: Version
 swagger: "2.0"

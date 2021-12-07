@@ -19,6 +19,8 @@ var products = []models.Product{
 	{ID: "3", Brand: "Haribo", Name: "Rotella", Price: 13.90},
 }
 
+const VERSION = "0.1"
+
 // @title           MyApp API
 // @version         1.0
 // @description     This is the MyApp API server.
@@ -39,6 +41,7 @@ func main() {
 	router := gin.Default()
 
 	router.GET("/ping", Ping)
+	router.GET("/version", Version)
 
 	// Group routes by version
 	v1 := router.Group("/api/v1")
@@ -74,4 +77,15 @@ func ListProducts(c *gin.Context) {
 // @Router       /ping [get]
 func Ping(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, models.Ping{Pong: time.Now()})
+}
+
+// Version godoc
+// @Summary      Version
+// @Description  Version of API-server
+// @Accept       json
+// @Produce      json
+// @Success      200  {string} Version "version"
+// @Router       /version [get]
+func Version(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, gin.H{"version": VERSION})
 }

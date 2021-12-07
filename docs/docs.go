@@ -76,6 +76,26 @@ var doc = `{
                     }
                 }
             }
+        },
+        "/version": {
+            "get": {
+                "description": "Version of API-server",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Version",
+                "responses": {
+                    "200": {
+                        "description": "version",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
