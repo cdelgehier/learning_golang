@@ -51,8 +51,8 @@ swag:
 	@docker run --rm --volume "$(PWD):/go/src/app" --name $(APP_NAME)_swag $(APP_NAME):builder swag init -g ./api-server.go
 
 ## test      : Run tests
-test:
-	@docker run --name $(APP_NAME)_builder $(APP_NAME):builder
+test: build
+	@docker run --rm --name $(APP_NAME)_builder $(APP_NAME):builder
 
 ## help      : Display this help
 help : Makefile

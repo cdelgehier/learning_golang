@@ -74,7 +74,7 @@ func ListProducts(c *gin.Context) {
 // @Accept       json
 // @Produce      json
 // @Success      200  {object} models.Ping "ping !"
-// @Router       /ping [get]
+// @Router       /api/v1/ping [get]
 func Ping(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, models.Ping{Pong: time.Now()})
 }
@@ -85,7 +85,7 @@ func Ping(c *gin.Context) {
 // @Accept       json
 // @Produce      json
 // @Success      200  {string} Version "version"
-// @Router       /version [get]
+// @Router       /api/v1/version [get]
 func Version(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, gin.H{"version": VERSION})
 }
