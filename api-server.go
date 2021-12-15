@@ -40,12 +40,12 @@ func main() {
 	// Default With the Logger and Recovery middleware already attached
 	router := gin.Default()
 
-	router.GET("/ping", Ping)
-	router.GET("/version", Version)
-
 	// Group routes by version
 	v1 := router.Group("/api/v1")
 	{
+		v1.GET("/ping", Ping)
+		v1.GET("/version", Version)
+
 		products := v1.Group("/product")
 		{
 			// products.GET(":id", ShowProduct)
