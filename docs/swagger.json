@@ -17,6 +17,26 @@
     "host": "localhost:8080",
     "basePath": "/api/v1",
     "paths": {
+        "/api/v1/ping": {
+            "get": {
+                "description": "Ping method for API Server",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Ping",
+                "responses": {
+                    "200": {
+                        "description": "ping !",
+                        "schema": {
+                            "$ref": "#/definitions/models.Ping"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/products": {
             "get": {
                 "description": "Get a list of all products known",
@@ -43,27 +63,45 @@
                 }
             }
         },
-        "/ping": {
+        "/api/v1/products/{id}": {
             "get": {
-                "description": "Ping method for API Server",
+                "description": "Get a product by its ID",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Ping",
+                "tags": [
+                    "products"
+                ],
+                "summary": "Show product by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "The ID of the product",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "ping !",
+                        "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Ping"
+                            "$ref": "#/definitions/models.Product"
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
             }
         },
-        "/version": {
+        "/api/v1/version": {
             "get": {
                 "description": "Version of API-server",
                 "consumes": [

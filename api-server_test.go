@@ -43,6 +43,31 @@ func TestListProducts(t *testing.T) {
 	}
 }
 
+func TestShowProduct(t *testing.T) {
+	gin.SetMode(gin.TestMode)
+	router := gin.Default()
+	v1 := router.Group("/api/v1")
+	{
+		products := v1.Group("/products")
+		{
+			products.GET(":id", ShowProduct)
+		}
+	}
+
+	req, err := http.NewRequest(http.MethodGet, "/api/v1/products/1", nil)
+	if err != nil {
+		t.Fatalf("Couldn't create request: %v\n", err)
+	}
+	rec := httptest.NewRecorder()
+	router.ServeHTTP(rec, req)
+	// test
+	if rec.Code == http.StatusOK {
+		t.Logf("Expected to get status %d is same as %d\n", http.StatusOK, rec.Code)
+	} else {
+		t.Fatalf("Expected to get status %d but instead got %d\n", http.StatusOK, rec.Code)
+	}
+}
+
 func TestPing(t *testing.T) {
 	// Switch to test mode
 	gin.SetMode(gin.TestMode)

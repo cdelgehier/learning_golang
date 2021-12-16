@@ -46,9 +46,9 @@ func main() {
 		v1.GET("/ping", Ping)
 		v1.GET("/version", Version)
 
-		products := v1.Group("/product")
+		products := v1.Group("/products")
 		{
-			// products.GET(":id", ShowProduct)
+			products.GET(":id", ShowProduct)
 			products.GET("", ListProducts)
 		}
 	}
@@ -66,6 +66,29 @@ func main() {
 // @Router       /api/v1/products [get]
 func ListProducts(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, products)
+}
+
+// ShowProduct godoc
+// @Summary      Show product by ID
+// @Description  Get a product by its ID
+// @Tags         products
+// @Param 		 id path string true "The ID of the product"
+// @Accept       json
+// @Produce      json
+// @Success      200  {object}   models.Product
+// @Failure 	 404  {string}   Error "error"
+// @Router       /api/v1/products/{id} [get]
+func ShowProduct(c *gin.Context) {
+	id := c.Param("id")
+
+	for _, p := range products {
+		if p.ID == id {
+			c.IndentedJSON(http.StatusOK, p)
+			return
+		}
+	}
+	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "product not found"})
+
 }
 
 // Ping godoc

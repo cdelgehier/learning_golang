@@ -34,6 +34,19 @@ info:
   title: MyApp API
   version: "1.0"
 paths:
+  /api/v1/ping:
+    get:
+      consumes:
+      - application/json
+      description: Ping method for API Server
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ping !
+          schema:
+            $ref: '#/definitions/models.Ping'
+      summary: Ping
   /api/v1/products:
     get:
       consumes:
@@ -51,20 +64,32 @@ paths:
       summary: List products
       tags:
       - products
-  /ping:
+  /api/v1/products/{id}:
     get:
       consumes:
       - application/json
-      description: Ping method for API Server
+      description: Get a product by its ID
+      parameters:
+      - description: The ID of the product
+        in: path
+        name: id
+        required: true
+        type: string
       produces:
       - application/json
       responses:
         "200":
-          description: ping !
+          description: OK
           schema:
-            $ref: '#/definitions/models.Ping'
-      summary: Ping
-  /version:
+            $ref: '#/definitions/models.Product'
+        "404":
+          description: error
+          schema:
+            type: string
+      summary: Show product by ID
+      tags:
+      - products
+  /api/v1/version:
     get:
       consumes:
       - application/json
