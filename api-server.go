@@ -19,10 +19,14 @@ var products = []models.Product{
 	{ID: "3", Brand: "Haribo", Name: "Rotella", Price: 13.90},
 }
 
-const VERSION = "0.1"
+var (
+	Version   string
+	Build     string
+	BuildTime string
+)
 
 // @title           MyApp API
-// @version         1.0
+// @version         Version
 // @description     This is the MyApp API server.
 // @termsOfService  http://swagger.io/terms/
 
@@ -44,7 +48,7 @@ func main() {
 	v1 := router.Group("/api/v1")
 	{
 		v1.GET("/ping", Ping)
-		v1.GET("/version", Version)
+		v1.GET("/version", GetVersion)
 
 		products := v1.Group("/products")
 		{
@@ -109,6 +113,12 @@ func Ping(c *gin.Context) {
 // @Produce      json
 // @Success      200  {string} Version "version"
 // @Router       /api/v1/version [get]
-func Version(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, gin.H{"version": VERSION})
+func GetVersion(c *gin.Context) {
+	c.IndentedJSON(
+		http.StatusOK,
+		gin.H{
+			"version":    Version,
+			"build":      Build,
+			"build_time": BuildTime,
+		})
 }

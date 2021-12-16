@@ -7,9 +7,14 @@ DOCKER_BUILD_OPTS ?=
 # DOCKER_BUILD_OPTS ?= --no-cache
 export DOCKER_BUILD_OPTS
 
-# VERSION=$(shell git describe --abbrev=0 --tags)
-# BUILD=$(shell git rev-parse --short HEAD)
-
+VERSION=$(shell git describe --abbrev=0 --tags)
+BUILD=$(shell git rev-parse --short HEAD)
+BUILD_TIME=$(shell date +%FT%T%z)
+# Setup the -ldflags option for go build here
+LDFLAGS="-w -s \
+	-X 'main.Version=${VERSION}' \
+	-X 'main.Build=${BUILD}' \
+	-X 'main.BuildTime=${BUILD_TIME}'"
 
 ifdef DOCKER_HOST
 	DOCKER_HOST_IP  ?= $(shell echo $(DOCKER_HOST) | sed 's/tcp:\/\///' | sed 's/:[0-9.]*//')
@@ -29,11 +34,19 @@ APP_NAME ?= myapp
 ## build     : Build the docker image of $(APP_NAME)
 build:
 # builder stage
-	@docker build --target builder --tag $(APP_NAME):builder $(DOCKER_BUILD_OPTS) . && echo "== Stage: BUILDER done"
+	@docker build --target builder \
+		--tag $(APP_NAME):builder \
+		$(DOCKER_BUILD_OPTS) \
+		--build-arg LDFLAGS=${LDFLAGS} . && echo "== Stage: BUILDER done"
 # api server
-	@docker build --target api-server --tag $(APP_NAME):api-server $(DOCKER_BUILD_OPTS) . && echo "== Stage: API Server done"
+	@docker build --target api-server \
+		--tag $(APP_NAME):api-server \
+		$(DOCKER_BUILD_OPTS) \
+		--build-arg LDFLAGS=${LDFLAGS} . && echo "== Stage: API Server done"
 # swagger-ui
-	@docker build --target swagger-ui --tag $(APP_NAME):swagger-ui $(DOCKER_BUILD_OPTS) . && echo "== Stage: SWAGGER UI done"
+	@docker build --target swagger-ui \
+		--tag $(APP_NAME):swagger-ui \
+		$(DOCKER_BUILD_OPTS) . && echo "== Stage: SWAGGER UI done"
 
 ## run       : Run the docker image on DOCKER_HOST_IP:8080
 run:

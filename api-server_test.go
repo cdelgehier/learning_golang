@@ -103,11 +103,11 @@ func TestVersion(t *testing.T) {
 	// Switch to test mode
 	gin.SetMode(gin.TestMode)
 
-	// Setup your router, like  did in the main function
+	// Setup your router, like did in the main function
 	router := gin.Default()
 	v1 := router.Group("/api/v1")
 	{
-		v1.GET("/version", Version)
+		v1.GET("/version", GetVersion)
 	}
 
 	// Test the route as defined in api-server.go

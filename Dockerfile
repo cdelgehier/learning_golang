@@ -11,6 +11,8 @@ ENV CGO_ENABLED=0
 ENV GOOS=linux
 ENV GOARCH=amd64
 
+ARG LDFLAGS
+
 WORKDIR /go/src/app
 
 COPY go.mod .
@@ -25,7 +27,7 @@ RUN go get -u github.com/swaggo/swag/cmd/swag
 
 COPY . .
 
-RUN go build -o ./api-server api-server.go
+RUN go build -ldflags="${LDFLAGS}" -o ./api-server api-server.go
 
 # Reuse builder to run go test
 CMD ["go", "test", "-v", "./..."]
