@@ -1,0 +1,37 @@
+---
+name: release
+
+on:
+  push:
+    tags: prepare-v[0-9]+.[0-9]+.[0-9]+
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v2
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Default: 1
+          fetch-depth: 0
+
+      - name: Set TAG_NAME in env
+        run: echo "TAG_NAME=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+      # - name: Display release name
+      #   run: |
+      #     echo ${{ env.TAG_NAME }}
+
+      - name: Releasing
+        run: |
+          make release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          TAG_NAME: ${{ env.TAG_NAME }}
+...
