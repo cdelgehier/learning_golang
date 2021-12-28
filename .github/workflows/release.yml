@@ -14,13 +14,17 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set TAG_NAME in env
-        run: echo "TAG_NAME=${GITHUB_REF#refs/*/prepare_}" >> $GITHUB_ENV
+        run: echo "TAG_NAME=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
-      - name: Test
-        run: |
-          echo ${{ env.TAG_NAME }}
+      # - name: Display release name
+      #   run: |
+      #     echo ${{ env.TAG_NAME }}
 
-      - name: Check Tag
+      - name: Releasing
         run: |
           make release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          TAG_NAME: ${{ env.TAG_NAME }}
 ...
