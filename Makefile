@@ -67,6 +67,10 @@ swag:
 test: build
 	@docker run --rm --name $(APP_NAME)_builder $(APP_NAME):builder
 
+## release   : Build release on tag prepare_vX.Y.Z
+release: build
+	@echo PLOP PLOP PLOP
+
 ## help      : Display this help
 help : Makefile
 	@sed -n 's/^##//p' $<

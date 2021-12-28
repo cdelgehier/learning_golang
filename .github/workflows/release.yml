@@ -1,0 +1,26 @@
+---
+name: release
+
+on:
+  push:
+    tags: prepare_v[0-9]+.[0-9]+.[0-9]+
+
+jobs:
+  build:
+    name: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v2
+
+      - name: Set TAG_NAME in env
+        run: echo "TAG_NAME=${GITHUB_REF#refs/*/prepare_}" >> $GITHUB_ENV
+
+      - name: Test
+        run: |
+          echo ${{ env.TAG_NAME }}
+
+      - name: Check Tag
+        run: |
+          make release
+...
